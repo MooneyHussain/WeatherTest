@@ -15,6 +15,8 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "WeatherTest.SampleApi.Bbc",
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "WeatherTest.SampleApi.Accu", "src\WeatherTest.SampleApi.Accu\WeatherTest.SampleApi.Accu.xproj", "{93B493ED-A94E-4231-8A69-E32DE64151B8}"
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "WeatherTest.Services", "src\WeatherTest.Services\WeatherTest.Services.xproj", "{698348CA-F81C-42C3-9B5A-600CD8ACF4B1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,10 @@ Global
 		{93B493ED-A94E-4231-8A69-E32DE64151B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{93B493ED-A94E-4231-8A69-E32DE64151B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{93B493ED-A94E-4231-8A69-E32DE64151B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{698348CA-F81C-42C3-9B5A-600CD8ACF4B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{698348CA-F81C-42C3-9B5A-600CD8ACF4B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{698348CA-F81C-42C3-9B5A-600CD8ACF4B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{698348CA-F81C-42C3-9B5A-600CD8ACF4B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -36,5 +42,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{D8520AF8-CEE6-43FE-890E-22065DB7B964} = {DF062A4D-92EB-4F54-BB80-B0E0BD948E67}
 		{93B493ED-A94E-4231-8A69-E32DE64151B8} = {DF062A4D-92EB-4F54-BB80-B0E0BD948E67}
+		{698348CA-F81C-42C3-9B5A-600CD8ACF4B1} = {DF062A4D-92EB-4F54-BB80-B0E0BD948E67}
 	EndGlobalSection
 EndGlobal
