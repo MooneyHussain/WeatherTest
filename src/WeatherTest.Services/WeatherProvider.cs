@@ -21,7 +21,31 @@ namespace WeatherTest.Services
             if (location == null)
                 throw new ArgumentNullException(nameof(location));
 
-            throw new Exception();
+            var weatherResults = new List<WeatherSourceResult>();
+
+            foreach (var source in _weatherSources)
+            {
+                var result = source.Get(location).Result;
+                weatherResults.Add(result);
+            }
+
+            return CreateResult(weatherResults, location);
+        }
+
+        private WeatherProviderResult CreateResult(IEnumerable<WeatherSourceResult> weatherSources, string location)
+        {
+            var providerResult = new WeatherProviderResult();
+            providerResult.Location = location;
+
+            foreach (var result in weatherSources)
+            {
+                providerResult.TemperatureCelsius.Add(result.TemperatureCelsius);
+                providerResult.TemperatureFahrenheit.Add(result.TemperatureCelsius);
+                providerResult.WindSpeedKph.Add(result.WindSpeedKph);
+                providerResult.WindSpeedMph.Add(result.WindSpeedMph);
+            }
+
+            return providerResult;
         }
     }
 }

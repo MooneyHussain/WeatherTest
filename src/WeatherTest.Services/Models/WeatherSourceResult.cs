@@ -2,10 +2,10 @@
 {
     public class WeatherSourceResult
     {
-        string Location { get; set; }
-        double TemperatureCelsius { get; set; }
-        double TemperatureFahrenheit { get; set; }
-        double WindSpeedKph { get; set; }
-        double WindSpeedMph { get; set; }
+        public string Location { get; set; }
+        public double TemperatureFahrenheit { get; set; }
+        public double WindSpeedKph { get; set; }
+        public double WindSpeedMph { get; set; }
+        public double TemperatureCelsius { get; set; }
     }
 }

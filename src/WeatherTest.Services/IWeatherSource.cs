@@ -3,7 +3,7 @@ using WeatherTest.Services.Models;
 
 namespace WeatherTest.Services
 {
-    interface IWeatherSource
+    public interface IWeatherSource
     {
         Task<WeatherSourceResult> Get(string location);
     }
