@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using WeatherTest.Services.Models;
 
 namespace WeatherTest.Services
-{ 
+{
     public class WeatherProvider : IProvideWeather
     {
         private readonly IEnumerable<IWeatherSource> _weatherSources;
@@ -15,6 +14,14 @@ namespace WeatherTest.Services
                 throw new ArgumentNullException(nameof(weatherSources));
 
             _weatherSources = weatherSources;
+        }
+
+        public WeatherProviderResult Retrieve(string location)
+        {
+            if (location == null)
+                throw new ArgumentNullException(nameof(location));
+
+            throw new Exception();
         }
     }
 }
