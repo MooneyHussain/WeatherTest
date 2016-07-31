@@ -4,8 +4,7 @@
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">14.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
-
-  <Import Project="$(VSToolsPath)\Dnx\Microsoft.Dnx.Props" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(VSToolsPath)\dotnet\Microsoft.dotnet.Props" Condition="'$(VSToolsPath)' != ''" />
   <PropertyGroup Label="Globals">
     <ProjectGuid>4370d7ba-7813-404a-9a8b-8d2067a48f7a</ProjectGuid>
     <RootNamespace>WeatherTest.ServicesTests</RootNamespace>
@@ -13,9 +12,11 @@
     <OutputPath Condition="'$(OutputPath)'=='' ">.\bin\</OutputPath>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
   </PropertyGroup>
-
   <PropertyGroup>
     <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
-  <Import Project="$(VSToolsPath)\Dnx\Microsoft.Dnx.targets" Condition="'$(VSToolsPath)' != ''" />
+  <ItemGroup>
+    <Service Include="{82a7f48d-3b50-4b1e-b82e-3ada8210c358}" />
+  </ItemGroup>
+  <Import Project="$(VSToolsPath)\dotnet\Microsoft.dotnet.targets" Condition="'$(VSToolsPath)' != ''" />
 </Project>

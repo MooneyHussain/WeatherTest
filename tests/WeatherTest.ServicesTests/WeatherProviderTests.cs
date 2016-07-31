@@ -2,7 +2,6 @@
 using Moq;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using WeatherTest.Services;
 using WeatherTest.Services.Models;
 using Xunit;
