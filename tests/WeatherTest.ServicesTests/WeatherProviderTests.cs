@@ -2,6 +2,7 @@
 using Moq;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using WeatherTest.Services;
 using WeatherTest.Services.Models;
 using Xunit;
@@ -44,7 +45,6 @@ namespace WeatherTest.ServicesTests
             [Fact]
             public void GivenWeatherSourcesThenAddToWeatherResult()
             {
-                //TODO: FAILING TEST! 
                 var sourceA = new Mock<IWeatherSource>();
                 var sourceB = new Mock<IWeatherSource>();
 
@@ -70,7 +70,42 @@ namespace WeatherTest.ServicesTests
                 var result = provider.Retrieve(_location);
 
                 result.Location.Should().Be(_location);
-                result.TemperatureCelsius.Should().Equal(13);
+                result.TemperatureCelsius.Sum().Should().Be(13);
+                result.TemperatureFahrenheit.Sum().Should().BeInRange(55, 56);
+                result.WindSpeedKph.Sum().Should().Be(24);
+                result.WindSpeedMph.Sum().Should().Be(15);
+            }
+
+            [Fact]
+            public void GivenWeatherSourcesWithMUltiplesOfTheSamePropertyThenAddToWeatherResult()
+            {
+                var sourceA = new Mock<IWeatherSource>();
+                var sourceB = new Mock<IWeatherSource>();
+
+                sourceA.Setup(s => s.Get(It.IsAny<string>())).ReturnsAsync(new WeatherSourceResult
+                {
+                    Location = _location,
+                    TemperatureCelsius = 13,
+                    WindSpeedKph = 24
+                });
+
+                sourceB.Setup(s => s.Get(It.IsAny<string>())).ReturnsAsync(new WeatherSourceResult
+                {
+                    Location = _location,
+                    TemperatureCelsius = 10,
+                    WindSpeedKph = 10
+                });
+
+                _weatherSources.Add(sourceA.Object);
+                _weatherSources.Add(sourceB.Object);
+
+                var provider = new WeatherProvider(_weatherSources);
+
+                var result = provider.Retrieve(_location);
+
+                result.Location.Should().Be(_location);
+                result.TemperatureCelsius.Sum().Should().Be(23);
+                result.WindSpeedKph.Sum().Should().Be(34);
             }
         }        
     }
