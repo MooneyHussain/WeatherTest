@@ -40,7 +40,7 @@ namespace WeatherTest.Services
             foreach (var result in weatherSources)
             {
                 providerResult.TemperatureCelsius.Add(result.TemperatureCelsius);
-                providerResult.TemperatureFahrenheit.Add(result.TemperatureCelsius);
+                providerResult.TemperatureFahrenheit.Add(result.TemperatureFahrenheit);
                 providerResult.WindSpeedKph.Add(result.WindSpeedKph);
                 providerResult.WindSpeedMph.Add(result.WindSpeedMph);
             }
