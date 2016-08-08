@@ -4,6 +4,6 @@ namespace WeatherTest.Services
 {
     interface ICalculateWeather
     {
-        void Calculate(WeatherProviderResult model);
+        CalculatedWeatherResult Calculate(WeatherProviderResult model, WeatherRequest criteria);
     }
 }
