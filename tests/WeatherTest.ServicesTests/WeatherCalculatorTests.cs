@@ -78,5 +78,29 @@ namespace WeatherTest.ServicesTests
             result.AggregatedTemperature.Should().Be(59);
             result.TemperatureUnit.Should().Be(TemperatureUnit.Fahrenheit);
         }
+
+        [Fact]
+        public void GivenCalculateIsInvokedWhenSpeedUnitIsMphThenReturnCorrectAggregatedResult()
+        {
+            var model = new WeatherProviderResult
+            {
+                Location = _location,
+                WindSpeedKph = new List<double> { 8 },
+                WindSpeedMph = new List<double> { 10 }
+            };
+
+            var criteria = new WeatherRequest
+            {
+                Location = _location,
+                SpeedUnit = SpeedUnit.Mph
+            };
+
+            var weatherCalculator = new WeatherCalculator();
+
+            var result = weatherCalculator.Calculate(model, criteria);
+
+            result.AggregatedWindSpeed.Should().Be(7.5);
+            result.SpeedUnit.Should().Be(SpeedUnit.Mph);
+        }
     }
 }

@@ -16,12 +16,15 @@ namespace WeatherTest.Services
                 throw new ArgumentNullException(nameof(criteria));
 
             var aggregatedTemp = CalculateTemperature(criteria.TemperatureUnit, model);
+            var aggregatedSpeed = CalculateWindspeed(criteria.SpeedUnit, model);
 
             return new CalculatedWeatherResult
             {
                 Location = criteria.Location,
                 AggregatedTemperature = aggregatedTemp,
-                TemperatureUnit = criteria.TemperatureUnit
+                AggregatedWindSpeed = aggregatedSpeed,
+                TemperatureUnit = criteria.TemperatureUnit,
+                SpeedUnit = criteria.SpeedUnit
             };
         }
 
@@ -44,9 +47,29 @@ namespace WeatherTest.Services
 
             throw new Exception("Unknown Temperature Unit");
         }
+
+
+        private double CalculateWindspeed(SpeedUnit unit, WeatherProviderResult model)
+        {
+            var averagedMph = GetAverageResult(model.WindSpeedMph);
+            var averagedKph = GetAverageResult(model.WindSpeedKph);
+
+            if (unit == SpeedUnit.Mph)
+            {
+                var mph = averagedKph / 1.60934400061;
+                return Math.Round(((averagedMph + mph) / 2), 1); 
+            }
+
+            throw new NotImplementedException();
+
+        }
+
                
         private double GetAverageResult(List<double> numbers)
         {
+            if (!numbers.Any())
+                return 0;
+
             return numbers.Average();
         }
     }
