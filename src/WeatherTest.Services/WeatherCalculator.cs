@@ -27,18 +27,22 @@ namespace WeatherTest.Services
 
         private double CalculateTemperature(TemperatureUnit unit, WeatherProviderResult model)
         {
-            double result;
             var averagedCelsius = GetAverageResult(model.TemperatureCelsius);
             var averagedFahrenheit = GetAverageResult(model.TemperatureFahrenheit);
 
             if (unit == TemperatureUnit.Celsius)
             {
                 var celsius = (averagedFahrenheit - 32) * 5 / 9;
-                result = (averagedCelsius + celsius) / 2;
-                return result;
+                return (averagedCelsius + celsius) / 2;                
             }
 
-            throw new NotImplementedException();
+            if (unit == TemperatureUnit.Fahrenheit)
+            {
+                var fahrenheit = (averagedCelsius * 1.8) + 32;
+                return (averagedFahrenheit + fahrenheit) / 2;
+            }
+
+            throw new Exception("Unknown Temperature Unit");
         }
                
         private double GetAverageResult(List<double> numbers)

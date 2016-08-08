@@ -52,6 +52,31 @@ namespace WeatherTest.ServicesTests
             var result = weatherCalculator.Calculate(model, criteria);
 
             result.AggregatedTemperature.Should().Be(15);
+            result.TemperatureUnit.Should().Be(TemperatureUnit.Celsius);
+        }
+
+        [Fact]
+        public void GivenCalculateIsInvokedWhenTemperatureUnitIsaFahrenheitThenReturnCorrectAggregatedResult()
+        {
+            var model = new WeatherProviderResult
+            {
+                Location = _location,
+                TemperatureCelsius = new List<double> { 10 },
+                TemperatureFahrenheit = new List<double> { 68 }
+            };
+
+            var criteria = new WeatherRequest
+            {
+                Location = _location,
+                TemperatureUnit = TemperatureUnit.Fahrenheit
+            };
+
+            var weatherCalculator = new WeatherCalculator();
+
+            var result = weatherCalculator.Calculate(model, criteria);
+
+            result.AggregatedTemperature.Should().Be(59);
+            result.TemperatureUnit.Should().Be(TemperatureUnit.Fahrenheit);
         }
     }
 }
