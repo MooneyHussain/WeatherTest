@@ -68,7 +68,6 @@ namespace WeatherTest.Services
 
             throw new Exception("Unknown Speed Unit");
         }
-
                
         private double GetAverageResult(List<double> numbers)
         {
