@@ -60,8 +60,13 @@ namespace WeatherTest.Services
                 return Math.Round(((averagedMph + mph) / 2), 1); 
             }
 
-            throw new NotImplementedException();
+            if (unit == SpeedUnit.Kph)
+            {
+                var kph = averagedMph * 1.60934400061;
+                return Math.Round(((averagedKph + kph) / 2), 1);
+            }
 
+            throw new Exception("Unknown Speed Unit");
         }
 
                

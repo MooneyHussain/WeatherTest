@@ -102,5 +102,29 @@ namespace WeatherTest.ServicesTests
             result.AggregatedWindSpeed.Should().Be(7.5);
             result.SpeedUnit.Should().Be(SpeedUnit.Mph);
         }
+
+        [Fact]
+        public void GivenCalculateIsInvokedWhenSpeedUnitIsKphThenReturnCorrectAggregatedResult()
+        {
+            var model = new WeatherProviderResult
+            {
+                Location = _location,
+                WindSpeedKph = new List<double> { 8 },
+                WindSpeedMph = new List<double> { 10 }
+            };
+
+            var criteria = new WeatherRequest
+            {
+                Location = _location,
+                SpeedUnit = SpeedUnit.Kph
+            };
+
+            var weatherCalculator = new WeatherCalculator();
+
+            var result = weatherCalculator.Calculate(model, criteria);
+
+            result.AggregatedWindSpeed.Should().Be(12);
+            result.SpeedUnit.Should().Be(SpeedUnit.Kph);
+        }
     }
 }
