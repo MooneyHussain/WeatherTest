@@ -28,7 +28,11 @@ namespace WeatherTest.Services
             if (request.Location == null)
                 throw new ArgumentNullException(nameof(request));
 
-            throw new NotImplementedException();
+            var source = _weatherProvider.Retrieve(request.Location);
+
+            var result = _weatherCalculator.Calculate(source, request);
+
+            return result;
         }
     }
 }

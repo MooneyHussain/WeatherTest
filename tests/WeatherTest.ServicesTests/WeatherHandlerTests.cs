@@ -69,6 +69,18 @@ namespace WeatherTest.ServicesTests
 
                 act.ShouldThrow<ArgumentNullException>();
             }
+
+            [Fact]
+            public void GivenHandleIsInvokedThenReturnResult()
+            {
+                var request = new WeatherRequest { Location = "test" };
+                var handler = new WeatherHandler(_weatherProvider.Object, _weatherCalculator.Object);
+
+                var result = handler.Handle(request);
+
+                _weatherProvider.Verify(wp => wp.Retrieve(It.IsAny<string>()), Times.Once);
+                _weatherCalculator.Verify(wc => wc.Calculate(It.IsAny<WeatherProviderResult>(), It.IsAny<WeatherRequest>()), Times.Once);
+            }
         }
     }
 }
