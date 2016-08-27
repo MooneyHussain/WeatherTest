@@ -1,8 +1,9 @@
 ﻿using System;
+using WeatherTest.Services.Models;
 
 namespace WeatherTest.Services
 {
-    public class WeatherHandler
+    public class WeatherHandler : IHandleWeather
     {
         private readonly IProvideWeather _weatherProvider;
         private readonly ICalculateWeather _weatherCalculator;
@@ -17,6 +18,17 @@ namespace WeatherTest.Services
 
             _weatherProvider = weatherProvider;
             _weatherCalculator = weatherCalculator;
+        }
+
+        public CalculatedWeatherResult Handle(WeatherRequest request)
+        {
+            if (request == null)
+                throw new ArgumentNullException(nameof(request));
+
+            if (request.Location == null)
+                throw new ArgumentNullException(nameof(request));
+
+            throw new NotImplementedException();
         }
     }
 }
