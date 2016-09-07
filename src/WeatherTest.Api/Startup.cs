@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using WeatherTest.Services;
 
 namespace WeatherTest.Api
 {
@@ -25,6 +26,9 @@ namespace WeatherTest.Api
         {
             // Add framework services.
             services.AddMvc();
+            services.AddTransient<IHandleWeather, WeatherHandler>();
+            services.AddTransient<IProvideWeather, WeatherProvider>();   
+            services.AddTransient<ICalculateWeather, WeatherCalculator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
