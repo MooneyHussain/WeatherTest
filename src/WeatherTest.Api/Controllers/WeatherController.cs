@@ -16,13 +16,9 @@ namespace WeatherTest.Api.Controllers
             _weatherHandler = weatherHandler;
         }
 
-        [HttpGet, Route("[controller]/{location}/{temperatureUnit}/{speedUnit}")]
-        public IActionResult Get(string location, string temperatureUnit, string speedUnit)
+        [HttpGet, Route("api/v1/weather/{location}")]
+        public IActionResult Get(string location, [FromQuery] string tempUnit, [FromQuery] string speedUnit)
         {
-            if (location == null) throw new ArgumentNullException(nameof(location));
-            if (temperatureUnit == null) throw new ArgumentNullException(nameof(temperatureUnit));
-            if (speedUnit == null) throw new ArgumentNullException(nameof(speedUnit));
-
             throw new NotImplementedException();             
         }
     }
