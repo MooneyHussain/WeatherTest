@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
+using WeatherTest.Api.Models;
 using WeatherTest.Services;
+using WeatherTest.Services.Models;
 
 namespace WeatherTest.Api.Controllers
 {
@@ -20,10 +22,29 @@ namespace WeatherTest.Api.Controllers
         public IActionResult Get(string location, [FromQuery] string tempUnit, [FromQuery] string speedUnit)
         {
             if (location == null) throw new ArgumentNullException(nameof(location));
-            if (tempUnit == null) throw new ArgumentNullException(nameof(tempUnit));
-            if (speedUnit == null) throw new ArgumentNullException(nameof(speedUnit));
+            if (tempUnit != "fahrenheit" && tempUnit != "celsius") return new BadRequestObjectResult("Unknown temp unit: " + (nameof(tempUnit)));
+            if (speedUnit != "mph" && speedUnit != "kph") return new BadRequestObjectResult("Unknown speed unit: " + (nameof(speedUnit)));
 
-            throw new NotImplementedException();             
+            try
+            {
+                var result = _weatherHandler.Handle(new WeatherRequest
+                {
+                    Location = location,
+                    TemperatureUnit = tempUnit == "fahrenheit" ? TemperatureUnit.Fahrenheit : TemperatureUnit.Celsius,
+                    SpeedUnit = speedUnit == "mph" ? SpeedUnit.Mph : SpeedUnit.Kph
+                });
+
+                return new OkObjectResult(new WeatherResult
+                {
+                    Location = result.Location,
+                    Temperature = result.AggregatedTemperature,
+                    Windspeed = result.AggregatedWindSpeed
+                });
+            }
+            catch (Exception)
+            {                
+                throw;
+            }
         }
     }
 }

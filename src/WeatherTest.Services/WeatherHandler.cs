@@ -26,7 +26,7 @@ namespace WeatherTest.Services
                 throw new ArgumentNullException(nameof(request));
 
             if (request.Location == null)
-                throw new ArgumentNullException(nameof(request));
+                throw new ArgumentNullException(nameof(request.Location));
 
             var source = _weatherProvider.Retrieve(request.Location);
 

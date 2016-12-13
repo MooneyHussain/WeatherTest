@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using Microsoft.AspNetCore.Mvc;
 using Moq;
 using System;
 using WeatherTest.Api.Controllers;
@@ -38,24 +39,34 @@ namespace WeatherTest.ApiTests
             act.ShouldThrow<ArgumentNullException>();
         }
 
-        [Fact]
-        public void GivenNullTemperatureUnitThenThrowArgumentNullException()
+        [Theory]
+        [InlineData("")]
+        [InlineData(" ")]
+        [InlineData(null)]
+        [InlineData("invalid")]
+        [InlineData("invalid unit")]
+        public void GivenInvalidTemperatureUnitThenReturnBadRequest(string value)
         {
             var controller = new WeatherController(_weatherHandler.Object);
 
-            Action act = () => controller.Get(_location, null, _speedUnit);
+            var result = controller.Get(_location, value, _speedUnit);
 
-            act.ShouldThrow<ArgumentNullException>();
+            result.Should().BeOfType<BadRequestObjectResult>();
         }
 
-        [Fact]
-        public void GivenNullSpeedUnitThenThrowArgumentNullException()
+        [Theory]
+        [InlineData("")]
+        [InlineData(" ")]
+        [InlineData(null)]
+        [InlineData("invalid")]
+        [InlineData("invalid unit")]
+        public void GivenInvalidSpeedUnitThenReturnBadRequest(string value)
         {
             var controller = new WeatherController(_weatherHandler.Object);
 
-            Action act = () => controller.Get(_location, _tempUnit, null);
+            var result = controller.Get(_location, _tempUnit, value);
 
-            act.ShouldThrow<ArgumentNullException>();
+            result.Should().BeOfType<BadRequestObjectResult>();
         }
     }
 }
