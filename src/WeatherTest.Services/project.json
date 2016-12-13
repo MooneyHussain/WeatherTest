@@ -1,8 +1,9 @@
-﻿{
+{
   "version": "1.0.0-*",
 
   "dependencies": {
-    "Newtonsoft.Json": "9.0.1",
+    "Newtonsoft.Json": "9.0.2-beta1",
+    "RestSharp": "105.2.3",
     "System.Net.Http": "4.0.0"
   },
 

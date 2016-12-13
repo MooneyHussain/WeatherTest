@@ -1,8 +1,7 @@
 ﻿using Newtonsoft.Json;
+using RestSharp;
 using System;
-using System.Diagnostics;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using WeatherTest.Services.Models;
 
@@ -17,26 +16,19 @@ namespace WeatherTest.Services
             if (location == null)
                 throw new ArgumentNullException(nameof(location));
 
-            using (var client = new HttpClient())
+            var client = new RestClient();
+            client.BaseUrl = new Uri(_accUrl);
+
+            try
             {
-                client.BaseAddress = new Uri(_accUrl);
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                var request = new RestRequest($"/{location}", Method.GET);
+                var response = await client.ExecuteGetTaskAsync(request);
 
-                try
-                {
-                    HttpResponseMessage response = await client.GetAsync($"/{location}");
-                    response.EnsureSuccessStatusCode();
-
-                    var stringResponse = await response.Content.ReadAsStringAsync();
-
-                    return CreateResult(stringResponse);
-                }
-                catch (HttpRequestException ex)
-                {
-                    Debug.WriteLine(ex.Message);
-                    throw;
-                }
+                return CreateResult(response.Content);
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new Exception("failure when requesting to accu weather source", ex);
             }
         }
 
